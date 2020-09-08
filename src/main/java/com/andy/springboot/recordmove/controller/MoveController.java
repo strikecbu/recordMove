@@ -3,7 +3,6 @@ package com.andy.springboot.recordmove.controller;
 import com.andy.springboot.recordmove.service.MoveRecordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
 import java.util.List;
@@ -24,7 +23,7 @@ public class MoveController {
         this.moveRecordService = moveRecordService;
     }
 
-    @RequestMapping("move")
+//    @RequestMapping("move")
     public String moveRecord(Model model) {
         final List<File> files = moveRecordService.move();
         model.addAttribute("files", files);

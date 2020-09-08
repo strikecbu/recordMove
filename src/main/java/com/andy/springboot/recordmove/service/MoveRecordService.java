@@ -1,6 +1,7 @@
 package com.andy.springboot.recordmove.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -12,4 +13,5 @@ import java.util.List;
  */
 public interface MoveRecordService {
     List<File> move();
+    void clean() throws IOException;
 }

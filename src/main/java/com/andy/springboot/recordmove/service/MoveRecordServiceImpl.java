@@ -88,4 +88,16 @@ public class MoveRecordServiceImpl implements MoveRecordService {
         }
         return list;
     }
+
+    @Override
+    public void clean() throws IOException {
+        for (File file : new File(recordPath).listFiles()) {
+            final String fileName = file.getName();
+            final Matcher matcher = Pattern.compile(recordFormat).matcher(fileName);
+            if (matcher.find()) {
+                FileUtils.forceDelete(file);
+                logger.info("Remove file: {}", fileName);
+            }
+        }
+    }
 }
