@@ -91,7 +91,7 @@ public class MoveRecordServiceImpl implements MoveRecordService {
 
     @Override
     public void clean() throws IOException {
-        for (File file : new File(recordPath).listFiles()) {
+        for (File file : Objects.requireNonNull(new File(recordPath).listFiles())) {
             final String fileName = file.getName();
             final Matcher matcher = Pattern.compile(recordFormat).matcher(fileName);
             if (matcher.find()) {
