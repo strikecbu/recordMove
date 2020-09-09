@@ -57,13 +57,12 @@ public class MoveRecordServiceImpl implements MoveRecordService {
                         final String date = matcher.group(1);
                         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd-HHmmss");
                         final SimpleDateFormat folderFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        final String nasFolderPath;
                         try {
                             final Date parse = dateFormat.parse(date);
                             final String folderName = folderFormat.format(parse);
-                            nasFolderPath = nasPath.concat(folderName);
-                            FileUtils.copyFileToDirectory(file, new File(nasFolderPath));
-                            logger.info("File : {}, from: {}, to {}", file.getName(), file.getAbsolutePath(), nasFolderPath);
+                            File nasFolder = new File(nasPath, folderName);
+                            FileUtils.copyFileToDirectory(file, nasFolder);
+                            logger.info("File : {}, from: {}, to {}", file.getName(), file.getAbsolutePath(), nasFolder.getAbsolutePath());
                         } catch (ParseException | IOException e) {
                             e.printStackTrace();
                         }
