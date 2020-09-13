@@ -1,5 +1,6 @@
 package com.andy.springboot.recordmove;
 
+import com.andy.springboot.recordmove.service.CheckFolderService;
 import com.andy.springboot.recordmove.service.MoveRecordService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,10 +31,13 @@ public class Executor implements CommandLineRunner {
     @Value("${nas.path}")
     private String nasPath;
 
-    private MoveRecordService moveRecordService;
+    final private MoveRecordService moveRecordService;
 
-    public Executor(MoveRecordService moveRecordService) {
+    final private CheckFolderService checkFolderService;
+
+    public Executor(MoveRecordService moveRecordService, CheckFolderService checkFolderService) {
         this.moveRecordService = moveRecordService;
+        this.checkFolderService = checkFolderService;
     }
 
     @Override
@@ -45,6 +49,7 @@ public class Executor implements CommandLineRunner {
         final long start = System.currentTimeMillis();
         moveRecordService.move();
         moveRecordService.clean();
+        checkFolderService.removeOutDateFolder();
         final long done = System.currentTimeMillis();
         logger.info("Total cause time: {} sec", (done - start) / 1000);
     }
